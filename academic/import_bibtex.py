@@ -36,6 +36,7 @@ def import_bibtex(
         parser.ignore_nonstandard_types = False
         bib_database = bibtexparser.load(bibtex_file, parser=parser)
         for entry in bib_database.entries:
+            # print(entry)
             parse_bibtex_entry(
                 entry, pub_dir=pub_dir, featured=featured, overwrite=overwrite, normalize=normalize, dry_run=dry_run,
             )
