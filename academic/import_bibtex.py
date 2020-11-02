@@ -115,6 +115,13 @@ def parse_bibtex_entry(
     page.fm["date"] = "-".join([year, month, day])
     page.fm["publishDate"] = timestamp
 
+
+    # this is likely *important* (in press, submitted, ...)
+    if "pubstate" in entry:
+        if "unpublished" not in entry["pubstate"].lower():
+            page.fm["weight"] = 1
+        page.fm["publication_status"] = entry["pubstate"]
+
     authors = None
     if "author" in entry:
         authors = entry["author"]
