@@ -185,7 +185,16 @@ def parse_bibtex_entry(
         page.fm["tags"] = clean_bibtex_tags(entry["keywords"], normalize)
 
     if "url" in entry:
-        page.fm["url_pdf"] = clean_bibtex_str(entry["url"])
+        url_type = "url_pdf"
+        if "urltype" in entry:
+            url_type = "url_"+entry["urltype"]
+        page.fm[url_type] = clean_bibtex_str(entry["url"])
+
+    # General url_*: should work for url_{video,slides,code,etc.}
+    for key in entry:
+        if key.startswith("url") and len(key) > 3:
+            page.fm["url_"+key[4:]] = clean_bibtex_tags(entry[key])
+
 
     if "doi" in entry:
         page.fm["doi"] = clean_bibtex_str(entry["doi"])
