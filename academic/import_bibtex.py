@@ -131,6 +131,10 @@ def parse_bibtex_entry(
           if entry["type"].lower() is not "talk":
             page.fm["eventtype"] = entry["type"]
 
+    if "venue" in entry:
+        page.fm["location"] = entry["venue"]
+
+
     authors = None
     if "author" in entry:
         authors = entry["author"]
