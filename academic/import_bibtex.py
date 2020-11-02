@@ -122,6 +122,14 @@ def parse_bibtex_entry(
             page.fm["weight"] = 1
         page.fm["publication_status"] = entry["pubstate"]
 
+    if "eventtitle" in entry:
+        page.fm["event"] = clean_bibtex_str(entry["eventtitle"])
+        if "eventurl" in entry:
+            page.fm["event_url"] = entry["eventurl"]
+        if "type" in entry:
+          if entry["type"].lower() is not "talk":
+            page.fm["eventtype"] = entry["type"]
+
     authors = None
     if "author" in entry:
         authors = entry["author"]
