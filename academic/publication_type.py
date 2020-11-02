@@ -12,6 +12,7 @@ class PublicationType(Enum):
     BookSection = 6
     Thesis = 7  # (v4.2+ required)
     Patent = 8  # (v4.2+ required)
+    ConferenceProceedings = 9  # local modification
 
 
 PUB_TYPES = {
@@ -26,9 +27,9 @@ PUB_TYPES = {
     "misc": PublicationType.Uncategorized,
     "patent": PublicationType.Patent,
     "phdthesis": PublicationType.Thesis,
-    "proceedings": PublicationType.Uncategorized,
     "report": PublicationType.Report,
     "thesis": PublicationType.Thesis,
     "techreport": PublicationType.Report,
     "unpublished": PublicationType.Preprint,
+    "proceedings": PublicationType.ConferenceProceedings,
 }
