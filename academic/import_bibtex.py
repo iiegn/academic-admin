@@ -93,6 +93,8 @@ def parse_bibtex_entry(
     page.load(Path("index.md"))
 
     page.fm["title"] = clean_bibtex_str(entry["title"])
+    if 'shorttitle' in entry:
+        page.fm["shorttitle"] = clean_bibtex_str(entry["shorttitle"])
 
     year, month, day = "", "01", "01"
     if "date" in entry:
