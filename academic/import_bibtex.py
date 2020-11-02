@@ -116,7 +116,8 @@ def parse_bibtex_entry(
     page.fm["publishDate"] = timestamp
 
 
-    # this is likely *important* (in press, submitted, ...)
+    # allow for pubstate (in press, submitted, ...) to appear - unless
+    # 'unpublished'
     if "pubstate" in entry:
         if "unpublished" not in entry["pubstate"].lower():
             page.fm["weight"] = 1
