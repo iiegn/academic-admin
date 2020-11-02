@@ -66,6 +66,13 @@ def parse_bibtex_entry(
     if not dry_run:
         Path(bundle_path).mkdir(parents=True, exist_ok=True)
 
+    # Filter some bib fields
+    entry_fields_filter = ["file"]
+    entry = {k:v for k,v in entry.items() if k not in entry_fields_filter}
+    # for key in entry:
+    #     print(key+": "+entry[key])
+    #     pass
+
     # Save citation file.
     log.info(f"Saving citation to {cite_path}")
     db = BibDatabase()
