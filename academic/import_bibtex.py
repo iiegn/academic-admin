@@ -161,9 +161,11 @@ def parse_bibtex_entry(
 
     page.fm["featured"] = featured
 
-    # Publication name.
+    # Publication name (booktitle/journaltitle).
     if "booktitle" in entry:
         publication = "*" + clean_bibtex_str(entry["booktitle"]) + "*"
+    elif 'journaltitle' in entry:
+        publication = "*" + clean_bibtex_str(entry["journaltitle"]) + "*"
     elif "journal" in entry:
         publication = "*" + clean_bibtex_str(entry["journal"]) + "*"
     elif "publisher" in entry:
@@ -171,6 +173,13 @@ def parse_bibtex_entry(
     else:
         publication = ""
     page.fm["publication"] = publication
+
+    # Publication short name (shortjournal).
+    if "shortjournal" in entry:
+        page.fm["publication_short"] = "*" + clean_bibtex_str(entry["shortjournal"]) + "*"
+    else:
+        page.fm["publication_short"] = ""
+
 
     if "keywords" in entry:
         page.fm["tags"] = clean_bibtex_tags(entry["keywords"], normalize)
