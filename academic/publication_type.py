@@ -32,4 +32,5 @@ PUB_TYPES = {
     "techreport": PublicationType.Report,
     "unpublished": PublicationType.Preprint,
     "proceedings": PublicationType.ConferenceProceedings,
+    "collection": PublicationType.Book,
 }
