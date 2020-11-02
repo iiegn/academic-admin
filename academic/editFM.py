@@ -45,8 +45,27 @@ class EditableFM:
         if self.dry_run:
             return
 
-        with open(self.path, "w", encoding="utf-8") as f:
-            f.write("{}\n".format(self.delim))
-            yaml.dump(self.fm, f)
-            f.write("{}\n".format(self.delim))
-            f.writelines(self.content)
+        content_differs = True
+
+        # Load Markdown file and compare to new one.
+        with open(self.path, "r", encoding="utf-8") as f:
+            old_content = [line for line in f.readlines()[1:-2] if not
+                           (line.startswith("publishDate") or line == "" or
+                            line.startswith("publication_types"))]
+            new_content = [line+"\n" for line in self.fm[1:-1] if not
+                           (line.startswith("publishDate") or line == "" or
+                            line.startswith("publication_types"))]
+            import difflib
+            # print("".join(difflib.unified_diff(new_content, old_content)))
+            if len(list(difflib.unified_diff(new_content, old_content))) == 0:
+              content_differs = False
+
+        # Save Markdown file.
+        if content_differs:
+            with open(self.path, "w", encoding="utf-8") as f:
+                f.write("{}\n".format(self.delim))
+                yaml.dump(self.fm, f)
+                f.write("{}\n".format(self.delim))
+                f.writelines(self.content)
+        else:
+            print(f"*NOT* saving identical Markdown to '{self.path}'")
