@@ -98,7 +98,7 @@ def parse_bibtex_entry(
 
     year, month, day = "", "01", "01"
     if "date" in entry:
-        dateparts = entry["date"].split("-")
+        dateparts = entry["date"].split("/")[0].split("-")
         if len(dateparts) == 3:
             year, month, day = dateparts[0], dateparts[1], dateparts[2]
         elif len(dateparts) == 2:
