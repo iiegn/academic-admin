@@ -13,6 +13,7 @@ class PublicationType(Enum):
     Thesis = 7  # (v4.2+ required)
     Patent = 8  # (v4.2+ required)
     ConferenceProceedings = 9  # local modification
+    NewspaperArticle = 10  # local modification
 
 
 PUB_TYPES = {
