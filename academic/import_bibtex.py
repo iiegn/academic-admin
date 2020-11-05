@@ -151,8 +151,14 @@ def parse_bibtex_entry(
         if (entry["ENTRYTYPE"] == "article"
                 and entry["entrysubtype"].lower() == "newspaper"):
             pubtype = PublicationType.NewspaperArticle
-    page.fm["publication_types"] = [str(pubtype.value)]
-
+    # For talks we want
+    # - NO: 'publication_types'
+    # - YES: 'all_day: true'
+    # lazy check: are we writing in a directory containing 'talk' in its name?
+    if "talk" in pub_dir:
+        page.fm["all_day"] = True
+    else:
+        page.fm["publication_types"] = [str(pubtype.value)]
 
     if "abstract" in entry:
         page.fm["abstract"] = clean_bibtex_str(entry["abstract"])
