@@ -118,10 +118,10 @@ def parse_bibtex_entry(
 
     # allow for pubstate (in press, submitted, ...) to appear - unless
     # 'unpublished'
-    if "pubstate" in entry:
-        if "unpublished" not in entry["pubstate"].lower():
+    if "howpublished" in entry:
+        if "unpublished" not in entry["howpublished"].lower():
             page.fm["weight"] = 1
-        page.fm["publication_status"] = entry["pubstate"]
+        page.fm["publication_status"] = entry["howpublished"]
 
     if "eventtitle" in entry:
         page.fm["event"] = clean_bibtex_str(entry["eventtitle"])
