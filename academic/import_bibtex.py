@@ -68,7 +68,7 @@ def parse_bibtex_entry(
 
     # Filter some bib fields
     entry_fields_filter = ["file"]
-    entry = {k:v for k,v in entry.items() if k not in entry_fields_filter}
+    entry = {k: v for k, v in entry.items() if k not in entry_fields_filter}
     # for key in entry:
     #     print(key+": "+entry[key])
     #     pass
@@ -115,7 +115,6 @@ def parse_bibtex_entry(
     page.fm["date"] = "-".join([year, month, day])
     page.fm["publishDate"] = timestamp
 
-
     # allow for pubstate (in press, submitted, ...) to appear - unless
     # 'unpublished'
     if "howpublished" in entry:
@@ -128,12 +127,11 @@ def parse_bibtex_entry(
         if "eventurl" in entry:
             page.fm["event_url"] = entry["eventurl"]
         if "type" in entry:
-          if entry["type"].lower() is not "talk":
-            page.fm["eventtype"] = entry["type"]
+            if entry["type"].lower() != "talk":
+                page.fm["eventtype"] = entry["type"]
 
     if "venue" in entry:
         page.fm["location"] = entry["venue"]
-
 
     authors = None
     if "author" in entry:
@@ -144,7 +142,6 @@ def parse_bibtex_entry(
     if authors:
         authors = clean_bibtex_authors([i.strip() for i in authors.replace("\n", " ").split(" and ")])
         page.fm["authors"] = authors
-
 
     pubtype = PUB_TYPES.get(entry["ENTRYTYPE"], PublicationType.Uncategorized)
     if "entrysubtype" in entry:
@@ -185,7 +182,6 @@ def parse_bibtex_entry(
         page.fm["publication_short"] = "*" + clean_bibtex_str(entry["shortjournal"]) + "*"
     else:
         page.fm["publication_short"] = ""
-
 
     if "keywords" in entry:
         page.fm["tags"] = clean_bibtex_tags(entry["keywords"], normalize)
