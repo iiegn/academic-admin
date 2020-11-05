@@ -198,9 +198,8 @@ def parse_bibtex_entry(
 
     # General url_*: should work for url_{video,slides,code,etc.}
     for key in entry:
-        if key.startswith("url") and len(key) > 3:
-            page.fm["url_"+key[4:]] = clean_bibtex_tags(entry[key])
-
+        if key.startswith("url") and key != "urltype" and len(key) > 3:
+            page.fm["url_"+key[3:]] = clean_bibtex_str(entry[key])
 
     if "doi" in entry:
         page.fm["doi"] = clean_bibtex_str(entry["doi"])
