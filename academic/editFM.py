@@ -50,8 +50,8 @@ class EditableFM:
         # Load Markdown file and compare to new one.
         with open(self.path, "r", encoding="utf-8") as f:
             old_content = [line for line in f.readlines()[1:-2] if not
-                           (line == "" or line.startswith("#") or
-                            line.startswith("publishDate"))]
+                           (line == "" or line.strip().startswith("#") or
+                            line.startswith("publishDate:"))]
             import io
             new_output = io.StringIO()
             yaml.dump(self.fm, new_output)
@@ -60,8 +60,7 @@ class EditableFM:
             new_output.close()
 
             new_content = [line+"\n" for line in new_output_lines if not
-                           (line.startswith("publishDate") or line == "" or
-                            line.startswith("publication_types"))]
+                           (line.startswith("publishDate:") or line == "")]
             import difflib
             print("".join(difflib.unified_diff(old_content, new_content)))
             if len(list(difflib.unified_diff(new_content, old_content))) == 0:
